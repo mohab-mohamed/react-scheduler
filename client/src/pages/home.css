@@ -1,0 +1,40 @@
+.centerColumn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.rightArrow {
+    position: absolute;
+    top:45vh;
+    left: 90vw;
+    z-index: 100;
+}
+#hide {
+    display: none;
+}
+
+.leftArrow {
+    position: absolute;
+    top:45vh;
+    right: 90vw;
+    z-index: 100;
+}
+
+.todoScreen {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15vh;
+}
+
+#centerCalendar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
