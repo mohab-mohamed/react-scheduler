@@ -1,11 +1,9 @@
 import axios from "axios";
 
 export default {
-
   signIn: function () {
     return axios.get("/auth/google");
   },
-
 
   addTask: async function (task, completed, _id) {
     console.log("Task Object Being Sent to Backend: ", {
@@ -55,11 +53,12 @@ export default {
     return axios.get("/api/time_table/" + _id);
   },
 
-  postTimeTable: function (_id, date, timeTable) {
+  postTimeTable: function (_id, date, timeTable, taskTable) {
     return axios.post("/api/time_table", {
       _id: _id,
       date: date,
       timeTable: timeTable,
+      taskTable: taskTable,
     });
   },
 };

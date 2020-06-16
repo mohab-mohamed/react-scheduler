@@ -63,6 +63,7 @@ module.exports = (app) => {
           (timeTable) => timeTable.date === req.body.date
         );
         existingUser[0].timeTables[index].timeTable = req.body.timeTable;
+        existingUser[0].timeTables[index].taskTable = req.body.taskTable;
         await existingUser[0].save();
         res.send(existingUser);
       } else {
@@ -81,28 +82,6 @@ module.exports = (app) => {
     }
   });
 
-  // const testUser = await db.User.find({_id: ObjectId(id), timeTables: {$elemMatch: {date: req.body.date}} });
-  // db.User.findOne({ userId: profile.id }).then((existingUser) => {
-  //   if (existingUser) {
-  //     existingUser.access = accessToken;
-  //     existingUser.save().then((existingUser) => {
-  //       done(null, existingUser);
-  //     });
-  //   } else {
-  //     new db.User({
-  //       userId: profile.id,
-  //       username: profile.displayName,
-  //       picture: profile._json.picture,
-  //       todos: [],
-  //       access: accessToken,
-  //       timeTables: [],
-  //     })
-  //       .save()
-  //       .then((user) => {
-  //         done(null, user);
-  //       });
-  //   }
-  // });
 
   app.get("/api/time_table/:id", async (req, res) => {
     try {

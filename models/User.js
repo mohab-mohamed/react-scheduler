@@ -16,6 +16,7 @@ const userSchema = new Schema({
     {
       date: String,
       timeTable: [Number],
+      taskTable: [Number],
     },
   ],
 });
