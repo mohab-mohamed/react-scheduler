@@ -5,22 +5,32 @@ import { VictoryPie } from "victory";
 
 import { connect } from "react-redux";
 import moment from "moment";
+import { set } from "mongoose";
 
 const CreateTimeDonut = (props) => {
   const [timeTable, setTimeTable] = useState([0, 0, 0, 1440]);
 
-
   useEffect(() => {
     async function fetchTables() {
       // You can await here
+      console.log("enetered effect");
       const resTimeTables = await API.getTimeTables(props.user._id);
       const timeTables = resTimeTables.data;
+      // console.log(timeTables[0].date);
+      // console.log(JSON.stringify(props.date));
+      // console.log("time tables", timeTables[0].date===JSON.stringify(props.date));
 
-      console.log(timeTables);
-    
+      let dayTableArray = timeTables.filter(
+        (timeTable) => timeTable.date === JSON.stringify(props.date)
+      );
+      if (dayTableArray.length > 0) {
+        setTimeTable(dayTableArray[0].timeTable);
+      } else {
+        setTimeTable([0, 0, 0, 1440]);
+      }
     }
     fetchTables();
-  }, [timeTable, props.date]);
+  }, [props.date]);
 
   console.log("PROPS SHOULD BE HERE", props);
 
@@ -59,21 +69,16 @@ const CreateTimeDonut = (props) => {
 
     // calcualte new time table and set state
     const newTimeTable = [
-      timeTable[0] + workTime,
+      workTime,
       timeTable[1],
       timeTable[2],
-      timeTable[3] - workTime,
+      1440 - workTime,
     ];
     setTimeTable(newTimeTable);
-
+    await API.postTimeTable(props.user._id, JSON.stringify(props.date), newTimeTable);
     return;
   };
 
-  const getTimeTables = async () => {
-    const userTimeTables = await API.getTimeTables(props.user._id);
-    console.log(userTimeTables);
-    return;
-  };
 
   const [width, setWidth] = useState(window.innerWidth);
   const updateWidth = (ev) => {
@@ -90,8 +95,6 @@ const CreateTimeDonut = (props) => {
     };
   }, []);
 
-  
-
   let sampleData = [
     { x: 1, y: timeTable[0] },
     { x: 2, y: timeTable[1] },
@@ -105,10 +108,9 @@ const CreateTimeDonut = (props) => {
 
   return (
     <div>
-      <h1>{JSON.stringify(props.date)}</h1>
       <svg viewBox={"0 0" + " " + width + " " + width} width="100%">
         <circle
-          onClick={getTimeTables}
+          onClick={makeTimeTable}
           cx={width / 2}
           cy={width / 2}
           r={40}
@@ -119,7 +121,7 @@ const CreateTimeDonut = (props) => {
           width={width}
           height={width}
           innerRadius={Math.round(width * 0.2)}
-          animate={{ duration: 2000 }}
+          animate={{ duration: 1000 }}
           // padAngle={({ datum }) => datum.y}
           data={sampleData}
           labels={() => null}

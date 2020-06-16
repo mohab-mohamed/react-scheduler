@@ -48,4 +48,12 @@ export default {
   getTimeTables: function (_id) {
     return axios.get("/api/time_table/" + _id);
   },
+
+  postTimeTable: function (_id, date, timeTable) {
+    return axios.post("/api/time_table", {
+      _id: _id,
+      date: date,
+      timeTable: timeTable,
+    });
+  },
 };

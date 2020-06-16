@@ -52,19 +52,57 @@ module.exports = (app) => {
     try {
       console.log("posting task");
       const id = req.body._id;
-      const selectedUser = await db.User.findById(ObjectId(id));
-      selectedUser.timeTables.push({
-        date: req.body.date,
-        timeTable: req.body.timeTable,
+      const existingUser = await db.User.find({
+        _id: ObjectId(id),
+        timeTables: { $elemMatch: { date: req.body.date } },
       });
-      await selectedUser.save();
-      console.log("posting success:", selectedUser);
-      res.send(selectedUser);
+      console.log(existingUser.length);
+      if (existingUser.length !== 0) {
+        console.log(existingUser[0]);
+        const index = existingUser[0].timeTables.findIndex(
+          (timeTable) => timeTable.date === req.body.date
+        );
+        existingUser[0].timeTables[index].timeTable = req.body.timeTable;
+        await existingUser[0].save();
+        res.send(existingUser);
+      } else {
+        const selectedUser = await db.User.findById(ObjectId(id));
+        selectedUser.timeTables.push({
+          date: req.body.date,
+          timeTable: req.body.timeTable,
+        });
+        await selectedUser.save();
+        console.log("posting success:", selectedUser);
+        res.send(selectedUser);
+      }
     } catch (err) {
       console.log("ERROR IS: ", err);
       res.status(401).json(err);
     }
   });
+
+  // const testUser = await db.User.find({_id: ObjectId(id), timeTables: {$elemMatch: {date: req.body.date}} });
+  // db.User.findOne({ userId: profile.id }).then((existingUser) => {
+  //   if (existingUser) {
+  //     existingUser.access = accessToken;
+  //     existingUser.save().then((existingUser) => {
+  //       done(null, existingUser);
+  //     });
+  //   } else {
+  //     new db.User({
+  //       userId: profile.id,
+  //       username: profile.displayName,
+  //       picture: profile._json.picture,
+  //       todos: [],
+  //       access: accessToken,
+  //       timeTables: [],
+  //     })
+  //       .save()
+  //       .then((user) => {
+  //         done(null, user);
+  //       });
+  //   }
+  // });
 
   app.get("/api/time_table/:id", async (req, res) => {
     try {
