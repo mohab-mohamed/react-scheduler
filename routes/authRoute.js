@@ -16,7 +16,7 @@ module.exports = (app) => {
     (req, res) => {
       console.log("trying to redirect");
       // console.log(req);
-      res.redirect("/home");
+      res.redirect("/");
     }
   );
 
