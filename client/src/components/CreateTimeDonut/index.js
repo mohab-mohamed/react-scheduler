@@ -2,6 +2,7 @@ import React, {  useState, useEffect } from "react";
 import API from "../../utils/API";
 
 import { VictoryPie } from "victory";
+import CreateTaskDonut from "../CreateTaskDonut";
 
 import { connect } from "react-redux";
 import moment from "moment";
@@ -71,7 +72,7 @@ const CreateTimeDonut = (props) => {
     const newTimeTable = [
       workTime,
       480,
-      timeTable[2],
+      120,
       1440 - workTime,
     ];
     setTimeTable(newTimeTable);
@@ -107,16 +108,16 @@ const CreateTimeDonut = (props) => {
     <div className="centerOuter">
       <svg viewBox={"0 0" + " " + width + " " + width} width="100%">
         <circle
-        stroke="rgba(128,128,70)"
+        stroke="#343A40"
         strokeWidth="4"
           onClick={makeTimeTable}
           cx={width / 2}
           cy={width / 2}
-          r={40}
-          fill="rgba(0,0,0,0.4)"
+          r={35}
+          fill="rgba(200,200,200,0.9)"
         />
         <VictoryPie
-          colorScale={["rgba(217,132,139,0.9)", "rgba(116, 141, 227, 0.9)", "rgba(245, 217, 139, 0.9)", "rgba(170, 245, 139, 0.9)"] }
+          colorScale={["rgba(217,132,139,0.9)", "rgba(13, 152, 186, 0.9)", "rgba(255, 204, 0, 0.7)", "rgba(170, 245, 139, 0.9)"] }
           standalone={false}
           width={width}
           height={width}
@@ -125,9 +126,12 @@ const CreateTimeDonut = (props) => {
           // padAngle={({ datum }) => datum.y}
           data={sampleData}
           labels={() => null}
-          style={{data: {stroke:"rgba(128,128,128)", strokeWidth: 3}}}
+          style={{data: {stroke:"#343A40", strokeWidth: 3}}}
         />
       </svg>
+      <div className="centerColumn">
+      <CreateTaskDonut />
+      </div>
     </div>
   );
 };

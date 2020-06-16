@@ -172,11 +172,11 @@ const Home = (props) => {
             )}
           </Col>
         </Row>
-        <Row>
+        {/* <Row>
           <Col className="centerColumn">
             {user && day ? <CreateTaskDonut /> : null}
           </Col>
-        </Row>
+        </Row> */}
         <Row>
           <Col id="centerCalendar" size="md-6">
             {user ? (

@@ -25,7 +25,7 @@ const Header = (props) => {
   return (
     <div>
       <Navbar bg="dark" variant="dark" >
-        <Navbar.Brand href="/home">SCHEDULER</Navbar.Brand>
+        <Navbar.Brand href="/home">PROCRAST</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
