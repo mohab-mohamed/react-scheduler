@@ -1,6 +1,12 @@
 import axios from "axios";
 
 export default {
+
+  signIn: function () {
+    return axios.get("/auth/google");
+  },
+
+
   addTask: async function (task, completed, _id) {
     console.log("Task Object Being Sent to Backend: ", {
       task: task,

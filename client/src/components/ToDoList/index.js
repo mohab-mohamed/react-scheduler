@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { connect } from "react-redux";
 
@@ -10,22 +10,14 @@ const ToDoList = (props) => {
   const [task, setTask] = useState({task: "", completed: false, _id: ""});
   const [allTasks, setAll] = useState([]);
 
-  const updateTasks = (latestAddition) => {
-    console.log("am i even getting", latestAddition);
-    const updatedTasks = [...allTasks, latestAddition];
-    console.log(updatedTasks);
-    setAll(allTasks => [...allTasks, latestAddition]);
-    return;
-  }
+  // const updateTasks = (latestAddition) => {
+  //   console.log("am i even getting", latestAddition);
+  //   const updatedTasks = [...allTasks, latestAddition];
+  //   console.log(updatedTasks);
+  //   setAll(allTasks => [...allTasks, latestAddition]);
+  //   return;
+  // }
 
-  // useEffect(() => {
-  //   const user = await API.getUser(pro
-
-  //   // Removes listener on unmount
-  //   return () => {
-      
-  //   };
-  // }, []);
 
   const addTask = async (e) => {
     e.preventDefault();

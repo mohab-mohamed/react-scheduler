@@ -1,8 +1,8 @@
-import React, { useRef, useState, useEffect } from "react";
+import React from "react";
 
 import { connect } from "react-redux";
 
-import { Navbar } from "react-bootstrap";
+import { Navbar, Button } from "react-bootstrap";
 
 const Header = (props) => {
 
@@ -11,12 +11,12 @@ const Header = (props) => {
       case null:
         return <p>loading</p>;
       case false:
-        return <a href="/auth/google">Sign-In With Google</a>;
+        return ;
 
       default:
         return (
           <React.Fragment>
-            <a href="/api/logout">Logout</a>
+            <a href="/api/logout"><Button variant="danger">Log Out</Button></a>
           </React.Fragment>
         );
     }
@@ -25,7 +25,7 @@ const Header = (props) => {
   return (
     <div>
       <Navbar bg="dark" variant="dark" >
-        <Navbar.Brand href="/home">Scheduler</Navbar.Brand>
+        <Navbar.Brand href="/home">SCHEDULER</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>

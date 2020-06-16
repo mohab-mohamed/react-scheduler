@@ -1,11 +1,11 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, {  useState, useEffect } from "react";
 import API from "../../utils/API";
 
 import { VictoryPie } from "victory";
 
 import { connect } from "react-redux";
 import moment from "moment";
-import { set } from "mongoose";
+
 
 const CreateTimeDonut = (props) => {
   const [timeTable, setTimeTable] = useState([0, 0, 0, 1440]);
@@ -70,7 +70,7 @@ const CreateTimeDonut = (props) => {
     // calcualte new time table and set state
     const newTimeTable = [
       workTime,
-      timeTable[1],
+      480,
       timeTable[2],
       1440 - workTime,
     ];
@@ -102,21 +102,21 @@ const CreateTimeDonut = (props) => {
     { x: 4, y: timeTable[3] },
   ];
 
-  let pointerStyle = {
-    cursor: "pointer",
-  };
 
   return (
-    <div>
+    <div className="centerOuter">
       <svg viewBox={"0 0" + " " + width + " " + width} width="100%">
         <circle
+        stroke="rgba(128,128,70)"
+        strokeWidth="4"
           onClick={makeTimeTable}
           cx={width / 2}
           cy={width / 2}
           r={40}
-          fill="#c43a31"
+          fill="rgba(0,0,0,0.4)"
         />
         <VictoryPie
+          colorScale={["rgba(217,132,139,0.9)", "rgba(116, 141, 227, 0.9)", "rgba(245, 217, 139, 0.9)", "rgba(170, 245, 139, 0.9)"] }
           standalone={false}
           width={width}
           height={width}
@@ -125,6 +125,7 @@ const CreateTimeDonut = (props) => {
           // padAngle={({ datum }) => datum.y}
           data={sampleData}
           labels={() => null}
+          style={{data: {stroke:"rgba(128,128,128)", strokeWidth: 3}}}
         />
       </svg>
     </div>
